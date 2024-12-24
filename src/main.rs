@@ -20,7 +20,8 @@ fn main() -> io::Result<()> {
     )?);
     
     println!("Day 2 - Part 1: {}", day2::challenge1::solve(day2_input.clone()));
-
+    println!("Day 2 - Part 2: {}", day2::challenge2::solve(day2_input.clone()));
+    
     Ok(())
 }
 
