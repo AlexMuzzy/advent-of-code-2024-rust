@@ -7,6 +7,7 @@ use std::path::Path;
 
 mod day1;
 mod day2;
+mod day3;
 
 fn main() -> io::Result<()> {
     let day1_input = day1::utils::get_lists_from_input(read_lines(
@@ -21,6 +22,11 @@ fn main() -> io::Result<()> {
     
     println!("Day 2 - Part 1: {}", day2::challenge1::solve(day2_input.clone()));
     println!("Day 2 - Part 2: {}", day2::challenge2::solve(day2_input.clone()));
+    
+    let day3_input = day3::utils::get_string_from_file("./src/day3/input1.txt")?;
+    
+    println!("Day 3 - Part 1: {}", day3::challenge1::solve(day3_input.clone()));
+    println!("Day 3 - Part 2: {}", day3::challenge2::solve(day3_input.clone()));
     
     Ok(())
 }
