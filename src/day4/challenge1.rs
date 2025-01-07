@@ -4,8 +4,9 @@ pub fn solve(input: Vec<Vec<char>>) -> i32 {
     println!("Checking {}x{} grid", input.len(), input[0].len());
 
     println!("Checking horizontally");
-    for mut line in input.clone() {
+    for i in 0..input.len() {
         // check each line horizontally
+        let mut line = input[i].clone();
         count += analyse_line(&line);
 
         // check again in reverse
@@ -98,7 +99,6 @@ fn analyse_line(line: &Vec<char>) -> i32 {
 
     for char in line {
         match (score, char) {
-            (0, 'X') => score = 1,
             (1, 'M') => score = 2,
             (2, 'A') => score = 3,
             (3, 'S') => {
@@ -106,7 +106,8 @@ fn analyse_line(line: &Vec<char>) -> i32 {
                 count += 1;
                 println!("Found XMAS! count: {}", line.iter().collect::<String>());
             }
-            (_, _) => score = 0, // This catches all other combinations
+            (_, 'X') => score = 1, // Treat X as a new start
+            (_, _) => score = 0,   // This catches all other combinations
         }
     }
 
