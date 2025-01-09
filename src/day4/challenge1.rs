@@ -1,3 +1,5 @@
+
+// Gave up with this impl, below is ChatGPTs finest work
 pub fn solve(input: Vec<Vec<char>>) -> i32 {
     let mut count = 0;
 
@@ -29,65 +31,87 @@ pub fn solve(input: Vec<Vec<char>>) -> i32 {
     }
 
     println!("Checking diagonally - top left to bottom right");
-    // check each line diagonally - top left to bottom right
     for i in 0..input.len() {
-        let mut column_line = Vec::new();
-        let mut row_line = Vec::new();
-        for j in 0..input.len() {
-            if i + j < input.len() {
-                println!("Adding {} to column_line, x={}, y={}", input[j][i + j], j, i + j);
-                column_line.push(input[j][i + j]);
+        for j in 0..input[0].len() {
+            let mut line = Vec::new();
+            let mut x = i;
+            let mut y = j;
+            while x < input.len() && y < input[0].len() {
+                line.push(input[x][y]);
+                x += 1;
+                y += 1;
             }
+            count += analyse_line(&line);
+            line.reverse();
+            count += analyse_line(&line);
         }
-
-        for j in 1..input.len() {
-            if i + j < input.len() {
-                // skip the centre line as it's already been checked
-                row_line.push(input[i + j][j]);
+    }
+    
+    println!("Checking diagonally - bottom left to top right");
+    for i in 0..input.len() {
+        for j in 0..input[0].len() {
+            let mut line = Vec::new();
+            let mut x = i;
+            let mut y = j;
+            while x < input.len() && y > 0 {
+                line.push(input[x][y]);
+                x += 1;
+                y -= 1;
             }
+            count += analyse_line(&line);
+            line.reverse();
+            count += analyse_line(&line);
         }
-        count += analyse_line(&column_line);
-        count += analyse_line(&row_line);
-
-        // check again in reverse
-        column_line.reverse();
-        count += analyse_line(&column_line);
-
-        row_line.reverse();
-        count += analyse_line(&row_line);
     }
 
-    println!("Checking diagonally - bottom left to top right");
-    for i in (0..input.len()).rev() {
-        let mut column_line = Vec::new();
-        let mut row_line = Vec::new();
-        for j in 0..input.len() {
-            let ii = i as i32;
-            let jj = j as i32;
-            if ii - jj >= 0 {
-                println!("Adding {} to column_line, x={}, y={}", input[i - j][j], i - j, j);
-                column_line.push(input[i - j][j]);
+    count
+}
+
+pub fn count_xmas(grid: &[Vec<char>]) -> usize {
+    let mut count = 0;
+    let rows = grid.len();
+    let cols = grid[0].len();
+
+    for i in 0..rows {
+        for j in 0..cols {
+            count += check_xmas(grid, i, j, rows, cols);
+        }
+    }
+
+    count
+}
+
+fn check_xmas(grid: &[Vec<char>], row: usize, col: usize, rows: usize, cols: usize) -> usize {
+    let mut count = 0;
+    let directions = [
+        (1, 0),  // Horizontal
+        (0, 1),  // Vertical
+        (1, 1),  // Diagonal down-right
+        (1, -1), // Diagonal down-left
+    ];
+
+    for &(dr, dc) in &directions {
+        for &reverse in &[false, true] {
+            let mut r = row;
+            let mut c = col;
+            let mut word = String::new();
+
+            for _ in 0..4 {
+                if r < rows && c < cols {
+                    word.push(grid[r][c]);
+                }
+                r = (r as i32 + dr) as usize;
+                c = (c as i32 + dc) as usize;
+            }
+
+            if reverse {
+                word = word.chars().rev().collect();
+            }
+
+            if word == "XMAS" {
+                count += 1;
             }
         }
-
-        for j in 1..input.len() {
-            let ii = i as i32;
-            let jj = j as i32;
-            if ii - jj >= 0 {
-                // skip the centre line as it's already been checked
-                row_line.push(input[i - j][j]);
-            }
-        }
-
-        count += analyse_line(&column_line);
-        count += analyse_line(&row_line);
-
-        // check again in reverse
-        column_line.reverse();
-        count += analyse_line(&column_line);
-
-        row_line.reverse();
-        count += analyse_line(&row_line);
     }
 
     count

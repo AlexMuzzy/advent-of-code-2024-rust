@@ -32,10 +32,11 @@ fn main() -> io::Result<()> {
     println!("Day 3 - Part 2: {}", day3::challenge2::solve(day3_input.clone()));
     
     let day4_input = day4::utils::get_char_grid_from_input(read_lines(
-        "./src/inputs/day4-input2.txt"
+        "./src/inputs/day4-input1.txt"
     )?)?;
     
-    println!("Day 4 - Part 1: {}", day4::challenge1::solve(day4_input.clone()));
+    println!("Day 4 - Part 1: {}", day4::challenge1::count_xmas(&day4_input));
+    println!("Day 4 - Part 2: {}", day4::challenge2::solve(&day4_input));
 
     Ok(())
 }
