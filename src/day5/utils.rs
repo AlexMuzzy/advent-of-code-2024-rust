@@ -1,3 +1,8 @@
+use std::{
+    fs::File,
+    io::{BufReader, Lines},
+};
+
 pub fn get_ordering_rules_and_update_pages_from_input(
     input: Lines<BufReader<File>>,
 ) -> Result<(Vec<Vec<i32>>, Vec<Vec<i32>>), std::io::Error> {
@@ -13,7 +18,7 @@ pub fn get_ordering_rules_and_update_pages_from_input(
         }
 
         if is_ordering_rules {
-            let rule = line.split().map(|s| s.parse::<i32>().unwrap()).collect();
+            let rule = line.split("|").map(|s| s.parse::<i32>().unwrap()).collect();
             ordering_rules.push(rule);
         } else {
             let page = line
