@@ -9,6 +9,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() -> io::Result<()> {
     let day1_input = day1::utils::get_lists_from_input(read_lines(
@@ -37,6 +38,10 @@ fn main() -> io::Result<()> {
     
     println!("Day 4 - Part 1: {}", day4::challenge1::count_xmas(&day4_input));
     println!("Day 4 - Part 2: {}", day4::challenge2::solve(&day4_input));
+
+    let day5_input = day5::utils::get_ordering_rules_and_update_pages_from_input(read_lines(
+        "./src/inputs/day5-input1.txt"
+    )?)?;
 
     Ok(())
 }
