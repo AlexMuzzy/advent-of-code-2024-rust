@@ -4,7 +4,7 @@ pub fn solve(page_ordering_rules: &[Vec<i32>], update_pages: &[Vec<i32>]) -> i32
     let mut count = 0;
 
     let rules = utils::generate_rules(&page_ordering_rules);
-    
+
     for update_page in update_pages {
         let mut is_valid = true;
 
@@ -32,7 +32,7 @@ pub fn solve(page_ordering_rules: &[Vec<i32>], update_pages: &[Vec<i32>]) -> i32
             count += curr_page[mid];
         }
     }
-    
+
     count
 }
 

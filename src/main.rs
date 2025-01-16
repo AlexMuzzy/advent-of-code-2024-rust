@@ -55,12 +55,16 @@ fn main() -> io::Result<()> {
 
     let (ordering_rules, update_pages) =
         day5::utils::get_ordering_rules_and_update_pages_from_input(read_lines(
-            "./src/inputs/day5-input1.txt",
+            "./src/inputs/day5-input2.txt",
         )?)?;
 
     println!(
         "Day 5 - Part 1: {}",
         day5::challenge1::solve(&ordering_rules, &update_pages)
+    );
+    println!(
+        "Day 5 - Part 2: {}",
+        day5::challenge2::solve(&ordering_rules, &update_pages)
     );
 
     Ok(())
