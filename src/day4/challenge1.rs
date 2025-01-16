@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 
 // Gave up with this impl, below is ChatGPTs finest work
 pub fn solve(input: Vec<Vec<char>>) -> i32 {
@@ -46,7 +47,7 @@ pub fn solve(input: Vec<Vec<char>>) -> i32 {
             count += analyse_line(&line);
         }
     }
-    
+
     println!("Checking diagonally - bottom left to top right");
     for i in 0..input.len() {
         for j in 0..input[0].len() {
