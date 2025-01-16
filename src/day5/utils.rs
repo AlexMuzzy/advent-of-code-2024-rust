@@ -11,18 +11,21 @@ pub fn get_ordering_rules_and_update_pages_from_input(
     let mut is_ordering_rules = true;
 
     for line in input {
-        let line = line.unwrap();
+        let line = line?;
         if line.is_empty() {
             is_ordering_rules = false;
             continue;
         }
 
         if is_ordering_rules {
-            let rule = line.split("|").map(|s| s.parse::<i32>().unwrap()).collect();
+            let rule = line
+                .split("|")
+                .map(|s| s.parse::<i32>().unwrap())
+                .collect();
             ordering_rules.push(rule);
         } else {
             let page = line
-                .split_whitespace()
+                .split(",")
                 .map(|s| s.parse::<i32>().unwrap())
                 .collect();
             update_pages.push(page);
