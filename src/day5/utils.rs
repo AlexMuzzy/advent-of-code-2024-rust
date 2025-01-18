@@ -47,3 +47,14 @@ pub fn generate_rules(page_ordering_rules: &[Vec<i32>]) -> HashMap<&i32, Vec<i32
         acc
     })
 }
+
+pub fn validate_rule(rules: &HashMap<&i32, Vec<i32>>, update_page: &[i32]) -> bool {
+    update_page.iter().enumerate().rev().all(|(i, &page)| {
+        rules.get(&page)
+            .map_or(true, |rule|
+                update_page[..i].iter()
+                    .all(|next| !rule.contains(next))
+            )
+    })
+}
+
